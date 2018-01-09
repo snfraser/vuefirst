@@ -1,5 +1,8 @@
 <template>
   <div id="top" class="page-container md-layout-column">
+
+
+    <!-- TOOLBAR -->
     <md-toolbar class="md-primary">
       <md-button class="md-icon-button" @click="showNavigation = true">
         <md-icon>menu</md-icon>
@@ -103,70 +106,26 @@
       similique, quo recusandae placeat dicta asperiores modi sint ea repudiandae maxime? Quae non explicabo, neque.
     </md-content>
 
-    <div class="md-layout md-gutter md-alignment-center">
-      <div class="md-layout-item md-medium-size-33 md-small-size-50 md-xsmall-size-100">
-        <span>Always Show</span>
-        <span>hahaha</span>
-        <span>hohohohehe</span>
-      </div>
-
-      <div class="md-layout-item md-medium-size-33 md-small-size-50 md-xsmall-size-100">
-        <span>Always Show</span>
-      </div>
-
-      <div class="md-layout-item md-medium-size-33 md-small-size-50 md-xsmall-size-100">
-        <span>Always Show</span>
-      </div>
-
-      <div class="md-layout-item md-medium-size-50 md-small-size-50 md-xsmall-hide">
-        <span>Hide Xsmall</span>
-      </div>
-
-      <div class="md-layout-item md-medium-size-50 md-small-hide">
-        <span>Hide Small</span>
-      </div>
-
-      <div class="md-layout-item md-medium-hide">
-        <span>Hide Medium</span>
-      </div>
-    </div>
-
+    <!-- TAB BAR -->
     <div>
-      <md-tabs class="md-primary" md-alignment="centered">
-        <md-tab id="tab-home" md-label="Home">
+      <md-tabs class="md-primary" md-alignment="left">
+        <md-tab id="tab-home" md-label="Projects">
           Lorem ipsum dolorit sequesturm bogitum psum dolorit sequesturm bogitupsum dolorit sequesturm
-          bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum
-          dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit
-          sequesturm bogitupsum dolorit sequesturm bogitu
 
         </md-tab>
-        <md-tab id="tab-pages" md-label="Pages">
+        <md-tab id="tab-pages" md-label="Campaigns">
 
           Lorem ipsum dolorit sequesturm bogitum psum dolorit sequesturm bogitupsum dolorit sequesturm
           bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum
-          dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit
-          sequesturm bogitupsum dolorit sequesturm bogitu Lorem ipsum dolorit sequesturm bogitum psum dolorit sequesturm bogitupsum dolorit sequesturm
-          bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum
-          dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit
-          sequesturm bogitupsum dolorit sequesturm bogitu Lorem ipsum dolorit sequesturm bogitum psum dolorit sequesturm bogitupsum dolorit sequesturm
-          bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum
-          dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit
-          sequesturm bogitupsum dolorit sequesturm bogitu
+
 
         </md-tab>
-        <md-tab id="tab-posts" md-label="Posts">
+        <md-tab id="tab-posts" md-label="Vehicles">
           sturm bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit
-          sequesturm bogitupsum dolorit sequesturm bogitu Lorem ipsum dolorit sequesturm bogitum psum dolorit sequesturm bogitupsum dolorit sequesturm
-          bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum
-          dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit
           sequesturm bogitupsum dolorit s
         </md-tab>
-        <md-tab id="tab-favorites" md-label="Favorites">
-          orit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit
-          sequesturm bogitupsum dolorit sequesturm bogitu Lorem ipsum dolorit sequesturm bogitum psum dolorit sequesturm bogitupsum dolorit sequesturm
-          bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum
-          dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit
-          sequesturm bogitupsum dolorit sequesturm bogitu Lorem ipsum dolorit sequesturm bogitum psum dolorit sequesturm bogitupsum dolorit sequesturm
+        <md-tab id="tab-favorites" md-label="Sensors">
+          psum dolorit sequesturm
           bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum
           dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit sequesturm bogitupsum dolorit
           sequesturm bogitupsum dolorit seq
@@ -175,6 +134,277 @@
 
 
     </div>
+
+    <!-- MAIN FORM AND OR CARD CONTENT -->
+
+
+
+    <div class="md-layout md-gutter md-alignment-top-center">
+
+
+      <div class="md-layout-item md-medium-size-50 md-small-size-50 md-xsmall-size-100">
+        <span>Project editing form</span>
+        <md-card md-with-hover>
+          <md-ripple>
+            <md-card-header class="md-accent">
+              <div class="md-title">Add a new Project</div>
+              <div class="md-subhead">Projects contain campaigns</div>
+            </md-card-header>
+
+            <md-card-content>
+
+              <!-- Form elements here -->
+              <div>
+                <md-field md-clearable>
+                  <label>Name</label>
+                  <md-input md-counter="30"></md-input>
+                </md-field>
+
+                <md-field>
+                  <label>Principle Investigator</label>
+                  <md-select name="piuser" id="piuser">
+                    <md-option value="1">Akabaka MacKaka</md-option>
+                    <md-option value="2">Mary McTavish</md-option>
+                    <md-option value="3">Joe Bloggs</md-option>
+                  </md-select>
+                </md-field>
+
+                <md-field>
+                  <label>Description</label>
+                  <md-textarea required></md-textarea>
+                  <i class="md-helper-text">Enter lots of information</i>
+                </md-field>
+
+
+                <md-field md-clearable>
+                  <md-icon class="md-primary">link</md-icon>
+                  <label>Project site URL</label>
+                  <md-input md-counter="40"></md-input>
+                </md-field>
+
+                <md-field>
+                  <label>Upload project logo</label>
+                  <md-file placeholder="Upload project logo" />
+                </md-field>
+
+                <md-checkbox v-model="publicproject" class="md-primary">Public</md-checkbox>
+
+              </div>
+
+              <md-speed-dial class="md-bottom-right" md-direction="top">
+                <md-speed-dial-target>
+                  <md-icon class="md-morph-initial">add</md-icon>
+                  <md-icon class="md-morph-final">edit</md-icon>
+                </md-speed-dial-target>
+
+                <md-speed-dial-content>
+                  <md-button class="md-icon-button">
+                    <md-icon>note</md-icon>
+                  </md-button>
+
+                  <md-button class="md-icon-button">
+                    <md-icon>event</md-icon>
+                  </md-button>
+                </md-speed-dial-content>
+              </md-speed-dial>
+
+            </md-card-content>
+
+            <md-card-actions md-alignment="left">
+              <md-button class="md-raised md-primary">Create Project</md-button>
+              <md-button class="md-raised md-accent">Cancel</md-button>
+            </md-card-actions>
+          </md-ripple>
+
+
+        </md-card>
+
+      </div>
+
+
+
+
+      <div class="md-layout-item md-medium-size-50 md-small-size-50 md-xsmall-size-100">
+        <span>Always Show</span>
+
+        <md-card md-with-hover>
+          <md-ripple>
+            <md-card-header>
+              <div class="md-title">Card with hover effect</div>
+              <div class="md-subhead">It also have a ripple</div>
+            </md-card-header>
+
+            <md-card-content>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non.
+            </md-card-content>
+
+            <md-card-actions>
+              <md-button class="md-primary">Action-1</md-button>
+              <md-button class="md-accent">Action-2</md-button>
+            </md-card-actions>
+          </md-ripple>
+        </md-card>
+      </div>
+
+</div>
+
+<!--
+      <div class="md-layout-item md-medium-size-25 md-small-size-50 md-xsmall-size-100">
+        <span>Always Show</span>
+
+        <md-card md-with-hover>
+          <md-ripple>
+            <md-card-header>
+              <div class="md-title">Card with hover effect</div>
+              <div class="md-subhead">It also have a ripple</div>
+            </md-card-header>
+
+            <md-card-content>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non.
+            </md-card-content>
+
+            <md-card-actions>
+              <md-button class="md-primary">Action-1</md-button>
+              <md-button class="md-accent">Action-2</md-button>
+            </md-card-actions>
+          </md-ripple>
+        </md-card>
+
+      </div>
+
+      <div class="md-layout-item md-medium-size-25 md-small-size-50 md-xsmall-size-100">
+        <span>Always Show</span>
+        <md-card md-with-hover>
+          <md-ripple>
+            <md-card-header>
+              <div class="md-title">Card with hover effect</div>
+              <div class="md-subhead">It also have a ripple</div>
+            </md-card-header>
+
+            <md-card-content>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non.
+            </md-card-content>
+
+            <md-card-actions>
+              <md-button class="md-primary">Action-1</md-button>
+              <md-button class="md-accent">Action-2</md-button>
+            </md-card-actions>
+          </md-ripple>
+        </md-card>
+      </div>
+
+      <div class="md-layout-item md-medium-size-25 md-small-size-50 md-xsmall-hide">
+        <span>Hide Xsmall</span>
+        <md-card md-with-hover>
+          <md-ripple>
+            <md-card-header>
+              <div class="md-title">Card with hover effect</div>
+              <div class="md-subhead">It also have a ripple</div>
+            </md-card-header>
+
+            <md-card-content>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non.
+            </md-card-content>
+
+            <md-card-actions>
+              <md-button class="md-primary">Action-1</md-button>
+              <md-button class="md-accent">Action-2</md-button>
+            </md-card-actions>
+          </md-ripple>
+        </md-card>
+      </div>
+
+      <div class="md-layout-item md-medium-size-25 md-small-hide">
+        <span>Hide Small</span>
+        <md-card md-with-hover>
+          <md-ripple>
+            <md-card-header>
+              <div class="md-title">Card with hover effect</div>
+              <div class="md-subhead">It also have a ripple</div>
+            </md-card-header>
+
+            <md-card-content>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non.
+            </md-card-content>
+
+            <md-card-actions>
+              <md-button class="md-primary">Action-1</md-button>
+              <md-button class="md-accent">Action-2</md-button>
+            </md-card-actions>
+          </md-ripple>
+        </md-card>
+      </div>
+
+
+      <div class="md-layout-item md-medium-hide  md-large-size-33">
+        <span>Hide Medium</span>
+        <md-card md-with-hover class="md-layout-item md-medium-hide  md-large-size-33">
+          <md-ripple>
+            <md-card-header>
+              <div class="md-title">Card with hover effect</div>
+              <div class="md-subhead">It also have a ripple</div>
+            </md-card-header>
+
+            <md-card-content>
+
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non.
+            </md-card-content>
+
+            <md-card-actions>
+              <md-button class="md-primary">Action-1</md-button>
+              <md-button class="md-accent">Action-2</md-button>
+            </md-card-actions>
+          </md-ripple>
+        </md-card>
+      </div>
+
+      <div class="md-layout-item md-medium-hide  md-large-size-33">
+        <span>Hide Medium</span>
+        <md-card md-with-hover>
+          <md-ripple>
+            <md-card-header>
+              <div class="md-title">Card with hover effect</div>
+              <div class="md-subhead">It also have a ripple</div>
+            </md-card-header>
+
+            <md-card-content>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non.
+            </md-card-content>
+
+            <md-card-actions>
+              <md-button class="md-primary">Action-1</md-button>
+              <md-button class="md-accent">Action-2</md-button>
+            </md-card-actions>
+          </md-ripple>
+        </md-card>
+      </div>
+
+      <div class="md-layout-item md-medium-hide  md-large-size-33">
+        <span>Hide Medium</span>
+        <md-card md-with-hover>
+          <md-ripple>
+            <md-card-header>
+              <div class="md-title">Card with hover effect</div>
+              <div class="md-subhead">It also have a ripple</div>
+            </md-card-header>
+
+            <md-card-content>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non.
+            </md-card-content>
+
+            <md-card-actions>
+              <md-button class="md-primary">Action-1</md-button>
+              <md-button class="md-accent">Action-2</md-button>
+            </md-card-actions>
+          </md-ripple>
+        </md-card>
+      </div>
+
+
+    </div>
+
+    -->
+
 
     <div class="phone-viewport">
       <md-bottom-bar md-type="shift">
@@ -190,7 +420,7 @@
       <md-dialog-alert
         :md-active.sync="first"
         md-content="Item has now been Created - let us rejoice !!"
-        md-confirm-text="Fab !"/>
+        md-confirm-text="Spiffing !"/>
 
       <md-dialog-alert
         :md-active.sync="second"
@@ -210,10 +440,11 @@
       showNavigation: false,
       showSidepanel: false,
       first: false,
-      second: false
+      second: false,
+      publicproject: false
     }),
     methods: {
-      movetoinbox () {
+      movetoinbox() {
         this.showNavigation = false
       }
     }
@@ -224,7 +455,7 @@
   @import '~vue-material/dist/theme/engine';
 
   .page-container {
-    min-height: 300px;
+    min-height: 600px;
     overflow: hidden;
     position: relative;
     border: 1px solid rgba(#000, .12);
@@ -240,11 +471,11 @@
     padding: 16px;
   }
 
+
   .md-layout-item {
-    height: 180px;
+    min-height: 180px;
     margin-top: 8px;
     margin-bottom: 8px;
-
 
     span {
       width: 100%;
@@ -252,8 +483,9 @@
       padding: 8px;
       display: block;
       background: md-get-palette-color(teal, 200);
-      border: 1px dashed darkorchid;
+
     }
   }
+
 
 </style>
