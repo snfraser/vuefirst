@@ -44,6 +44,7 @@
       </md-app-toolbar>
 
       <!-- LEFT NAV -->
+      <!-- SET MEDIA QUERY TO DECIDE ITS MD-PERMANENT STATUS -->
       <md-app-drawer name="d2" :md-active.sync="showNavigation" md-permanent="clipped">
         <md-toolbar class="md-transparent" md-elevation="0">
           <span class="md-title">Metadata</span>
@@ -212,7 +213,7 @@
                     <md-field>
                       <label>Project logo</label>
                       <md-file placeholder="Upload project logo" v-model="form.logoName"/>
-                      <md-button class="md-dense md-primary" @click="uploadLogo()">Upload</md-button>
+                      <md-button class="md-dense md-primary"  @click="uploadLogo()">Upload</md-button>
                     </md-field>
 
                     <md-checkbox v-model="form.public" class="md-primary">Public</md-checkbox>
@@ -335,6 +336,8 @@
 </template>
 
 <script>
+  /* eslint-disable no-trailing-spaces */
+
   import axios from 'axios'
 
   export default {
@@ -362,19 +365,17 @@
         this.first = true
       },
       uploadLogo () {
-        const ok = Math.random();
+        const ok = Math.random()
 
         if (ok < 0.5) {
           this.form.logoRef = Math.round(500 * Math.random())
           this.snackbarContent = 'File: ' + this.form.logoName + ' successfully uploaded, remote fileID: ' + this.form.logoRef
           this.snackbarVisible = true
         } else {
-          this.snackbarContent = 'Failed to upload logo: 504 Authorization Failure';
+          this.snackbarContent = 'Failed to upload logo: 504 Authorization Failure'
           this.snackbarVisible = true
         }
-      }
-
-      ,
+      },
       getUsers () {
         const url = 'https://jsonplaceholder.typicode.com/users'
         axios.get(url).then(
