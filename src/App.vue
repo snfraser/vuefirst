@@ -173,73 +173,91 @@
 
 
           <div class="md-layout-item md-medium-size-50 md-small-size-50 md-xsmall-size-100">
-            <span>Project editing form</span>
-            <md-card md-with-hover>
+            <span>Project {{edit ? 'editing' : 'creation'}} form</span>
+          <md-card md-with-hover>
 
-                <md-card-header class="md-accent">
-                  <div class="md-title">Add a new Project</div>
-                  <div class="md-subhead">Projects contain campaigns</div>
-                </md-card-header>
-
-                <md-card-content>
-
-                  <!-- Form elements here -->
-                  <div>
-                    <md-field md-clearable>
-                      <label>Name</label>
-                      <md-input md-counter="30" v-model="form.name"></md-input>
-                    </md-field>
-
-                    <md-field>
-                      <label>Principle Investigator</label>
-                      <md-select name="piuser" v-model="form.pi">
-                        <md-option v-for="(u, index) in users" :value="u.id" :key="index">{{u.name}}</md-option>
-                      </md-select>
-                    </md-field>
-
-                    <md-field>
-                      <label>Description</label>
-                      <md-textarea required v-model="form.desc"></md-textarea>
-                      <i class="md-helper-text">Enter lots of information</i>
-                    </md-field>
+            <md-card-header class="md-accent">
+              <div class="md-title">
 
 
-                    <md-field md-clearable >
-                      <md-icon class="md-primary">link</md-icon>
-                      <label>Project site URL</label>
-                      <md-input md-counter="40" v-model="form.url"></md-input>
-                    </md-field>
+                <md-button class="md-icon-button md-primary">
+                  <md-icon>{{edit ? 'edit' : 'library_add'}}</md-icon>
+                </md-button>
 
-                    <md-field>
-                      <label>Project logo</label>
-                      <md-file placeholder="Upload project logo" v-model="form.logoName"/>
-                      <md-button class="md-dense md-primary"  @click="uploadLogo()">Upload</md-button>
-                    </md-field>
-
-                    <md-checkbox v-model="form.public" class="md-primary">Public</md-checkbox>
-
-                  </div>
-
-                  <!-- A FAB to allow the project-view page to switch to edit mode -->
-                  <!--
-                  <md-button class="md-fab md-mini md-plain md-fab-bottom-right" to="/projects/edit>
-                    <md-icon>edit</md-icon>
-                  </md-button>
-                  -->
+                {{ edit ? 'Edit existing Project' : 'Add a new Project'}}
 
 
-                </md-card-content>
+              </div>
+              <div class="md-subhead">Projects contain campaigns</div>
+            </md-card-header>
 
-                <md-card-actions md-alignment="left">
-                  <md-button class="md-raised md-primary" @click="submitProject()">Create Project</md-button>
-                  <md-button class="md-raised md-accent">Cancel</md-button>
-                </md-card-actions>
+            <md-card-content>
+
+              <!-- Form elements here -->
+              <div>
+                <md-field md-clearable>
+                  <label>Name</label>
+                  <md-input md-counter="30" v-model="form.name"></md-input>
+                </md-field>
+
+                <md-field>
+                  <label>Principle Investigator</label>
+                  <md-select name="piuser" v-model="form.pi">
+                    <md-option v-for="(u, index) in users" :value="u.id" :key="index">{{u.name}}</md-option>
+                  </md-select>
+                </md-field>
+
+                <md-field>
+                  <label>Organization</label>
+                  <md-select name="projorg" v-model="form.org">
+                    <md-option v-for="(o, index) in orgs" :value="o.id" :key="index">{{o.name}}</md-option>
+                  </md-select>
+                </md-field>
+
+
+                <md-field>
+                  <label>Description</label>
+                  <md-textarea required v-model="form.desc"></md-textarea>
+                  <i class="md-helper-text">Enter lots of information</i>
+                </md-field>
+
+
+                <md-field md-clearable >
+                  <md-icon class="md-primary">link</md-icon>
+                  <label>Project site URL</label>
+                  <md-input md-counter="40" v-model="form.url"></md-input>
+                </md-field>
+
+                <md-field>
+                  <label>Project logo</label>
+                  <md-file placeholder="Upload project logo" v-model="form.logoName"/>
+                  <md-button class="md-dense md-primary"  @click="uploadLogo()">Upload</md-button>
+                </md-field>
+
+                <md-checkbox v-model="form.public" class="md-primary">Public</md-checkbox>
+
+              </div>
+
+              <!-- A FAB to allow the project-view page to switch to edit mode -->
+              <!--
+              <md-button class="md-fab md-mini md-plain md-fab-bottom-right" to="/projects/edit>
+                <md-icon>edit</md-icon>
+              </md-button>
+              -->
+
+
+            </md-card-content>
+
+            <md-card-actions md-alignment="left">
+              <md-button class="md-raised md-primary" @click="submitProject()">{{edit ? 'Update' : 'Create'}} Project</md-button>
+              <md-button class="md-raised md-accent">Cancel</md-button>
+            </md-card-actions>
 
 
 
-            </md-card>
+          </md-card>
 
-          </div>
+        </div>
 
 
           <div class="md-layout-item md-medium-size-20 md-small-size-20 md-xsmall-size-100">
@@ -288,7 +306,7 @@
               <md-tooltip md-direction="left">Logs</md-tooltip>
             </md-button>
 
-            <md-button class="md-icon-button">
+            <md-button class="md-icon-button" @click="toggleEdit()">
               <md-icon>chat</md-icon>
               <md-tooltip md-direction="left">Chat</md-tooltip>
             </md-button>
@@ -343,6 +361,7 @@
   export default {
     name: 'Sidenav',
     data: () => ({
+      edit: false,
       showNavigation: false,
       showSidepanel: false,
       first: false,
@@ -351,7 +370,8 @@
       snackbarContent: '',
       dlgContent: '',
       form: {name: '', desc: '', url: '', pi: '', logoName: '', logoRef: -1, public: false},
-      users: []
+      users: [],
+      orgs: [{id: 1, name: 'SAMS'}, {id: 2, name: 'NOCS'}, {id: 3, name: 'BODC'}]
     }),
     created () {
       this.getUsers()
@@ -387,6 +407,33 @@
             console.log(error)
           }
         )
+      },
+      getOrgs () {
+        const url = 'http://vocab.nerc.ac.uk/collection/P08/current/'
+        axios.get(url).then(
+          reply => {
+            console.log(reply.data)
+            // reply.data.forEach(item => { this.users.push({name: item.name, id: item.id}) })
+
+            let parser = new DOMParser()
+            let doc = parser.parseFromString(reply.data, 'text/xml')  // or could be application/xml
+
+            doc.getElementsByTagName('skos:prefLabel').forEach(item => {
+              console.log(item)
+            })
+          }).catch(
+          error => {
+            console.log(error)
+          }
+        )
+      },
+      toggleEdit () {
+        this.edit = !this.edit
+        if (this.edit) {
+          this.form.name = 'MASSMO'
+          this.form.pi = 4
+          this.form.desc = 'A very interseting ptroject'
+        }
       }
     }
   }
