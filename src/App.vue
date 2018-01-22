@@ -55,9 +55,10 @@
             <md-icon>folder</md-icon>
             <span class="md-list-item-text">Projects</span>
             <md-list slot="md-expand">
-              <md-list-item class="md-inset">Create</md-list-item>
-              <md-list-item class="md-inset">Update</md-list-item>
-              <md-list-item class="md-inset">View</md-list-item>
+              <md-list-item class="md-inset">MASSMO</md-list-item>
+              <md-list-item class="md-inset">OSNAP</md-list-item>
+              <md-list-item class="md-inset">ALTER-ECO</md-list-item>
+              <md-list-item class="md-inset">EEL</md-list-item>
             </md-list>
 
 
@@ -135,7 +136,7 @@
       -->
 
       <md-app-content>
-       <span>Content that goes above the forms here</span>
+        <span>Content that goes above the forms here</span>
         <!-- TAB BAR -->
         <!--
         <div>
@@ -174,90 +175,147 @@
 
           <div class="md-layout-item md-medium-size-50 md-small-size-50 md-xsmall-size-100">
             <span>Project {{edit ? 'editing' : 'creation'}} form</span>
-          <md-card md-with-hover>
+            <md-card md-with-hover>
 
-            <md-card-header class="md-accent">
-              <div class="md-title">
+              <md-card-header class="md-accent">
+                <div class="md-title">
 
 
-                <md-button class="md-icon-button md-primary">
-                  <md-icon>{{edit ? 'edit' : 'library_add'}}</md-icon>
+                  <md-button class="md-icon-button md-primary">
+                    <md-icon>{{edit ? 'edit' : 'library_add'}}</md-icon>
+                  </md-button>
+
+                  {{ edit ? 'Edit existing Project' : 'Add a new Project'}}
+
+
+                </div>
+                <div class="md-subhead">Projects contain campaigns</div>
+              </md-card-header>
+
+              <md-card-content>
+
+                <!-- Form elements here -->
+                <div>
+
+                  <!-- NAME -->
+                  <md-field md-clearable>
+                    <label>Name</label>
+                    <md-input md-counter="30" v-model="form.name"></md-input>
+                  </md-field>
+
+                  <!-- SHORT NAME -->
+                  <md-field md-clearable>
+                    <label>Short Name</label>
+                    <md-input md-counter="30" v-model="form.shortName"></md-input>
+                  </md-field>
+
+                  <!-- P INVSTIG -->
+                  <md-field>
+                    <label>Principle Investigator</label>
+                    <md-select name="piuser" v-model="form.pi">
+                      <md-option v-for="(u, index) in users" :value="u.id" :key="index">{{u.name}}</md-option>
+                    </md-select>
+                  </md-field>
+
+                  <!-- PRIM ORG-->
+                  <md-field class="widesel">
+                    <label>Primary Organization (C75)</label>
+                    <md-select name="projorg" v-model="form.primOrg">
+                      <md-option v-for="(o, index) in orgs" :value="o.id" :key="index">{{o.name}}</md-option>
+                    </md-select>
+                  </md-field>
+
+                  <!-- PRIM ORG CTRY-->
+                  <md-field class="widesel">
+                    <label>Primary Organization Country (C32)</label>
+                    <md-select name="projctry" v-model="form.primCntry">
+                      <md-option v-for="(c, index) in countries" :value="c.id" :key="index">{{c.name}}</md-option>
+                    </md-select>
+                  </md-field>
+
+                  <!-- GEOG AREA-->
+                  <md-field class="widesel">
+                    <label>Geographic Area (C19)</label>
+                    <md-select name="projgeog" v-model="form.geogArea">
+                      <md-option v-for="(g, index) in geog" :value="g.id" :key="index">{{g.name}}</md-option>
+                    </md-select>
+                  </md-field>
+
+                  <!-- OCEAN DISCIPLINE-->
+                  <md-field class="widesel">
+                    <label>Oceanographic Discipline (P08)</label>
+                    <md-select name="projdisc" v-model="form.disc">
+                      <md-option v-for="(d, index) in disciplines" :value="d.id" :key="index">{{d.name}}</md-option>
+                    </md-select>
+                  </md-field>
+
+                  <!-- FUNDER-->
+                  <md-field class="widesel">
+                    <label>Funding Organization (C75)</label>
+                    <md-select name="projfund" v-model="form.fundOrg">
+                      <md-option v-for="(o, index) in orgs" :value="o.id" :key="index">{{o.name}}</md-option>
+                    </md-select>
+                  </md-field>
+
+                  <!-- START DATE -->
+                  <md-field>
+                    <label>Start date</label>
+                    <md-datepicker v-model="form.startDate"/>
+                  </md-field>
+
+                  <!-- END DATE -->
+                  <md-field>
+                    <label>End date</label>
+                    <md-datepicker v-model="form.endDate"/>
+                  </md-field>
+
+                  <!-- DESCRIPTION -->
+                  <md-field>
+                    <label>Description</label>
+                    <md-textarea required v-model="form.desc"></md-textarea>
+                    <i class="md-helper-text">Enter lots of information</i>
+                  </md-field>
+
+                  <!-- SITE URL -->
+                  <md-field md-clearable>
+                    <md-icon class="md-primary">link</md-icon>
+                    <label>Project site URL</label>
+                    <md-input md-counter="40" v-model="form.url"></md-input>
+                  </md-field>
+
+                  <!-- LOGO -->
+                  <md-field>
+                    <label>Project logo</label>
+                    <md-file placeholder="Upload project logo" v-model="form.logoName"/>
+                    <md-button class="md-dense md-primary" @click="uploadLogo()">Upload</md-button>
+                  </md-field>
+
+                  <!-- PUBLIC -->
+                  <md-checkbox v-model="form.public" class="md-primary">Public</md-checkbox>
+
+                </div>
+
+                <!-- A FAB to allow the project-view page to switch to edit mode -->
+                <!--
+                <md-button class="md-fab md-mini md-plain md-fab-bottom-right" to="/projects/edit>
+                  <md-icon>edit</md-icon>
                 </md-button>
-
-                {{ edit ? 'Edit existing Project' : 'Add a new Project'}}
-
-
-              </div>
-              <div class="md-subhead">Projects contain campaigns</div>
-            </md-card-header>
-
-            <md-card-content>
-
-              <!-- Form elements here -->
-              <div>
-                <md-field md-clearable>
-                  <label>Name</label>
-                  <md-input md-counter="30" v-model="form.name"></md-input>
-                </md-field>
-
-                <md-field>
-                  <label>Principle Investigator</label>
-                  <md-select name="piuser" v-model="form.pi">
-                    <md-option v-for="(u, index) in users" :value="u.id" :key="index">{{u.name}}</md-option>
-                  </md-select>
-                </md-field>
-
-                <md-field>
-                  <label>Organization</label>
-                  <md-select name="projorg" v-model="form.org">
-                    <md-option v-for="(o, index) in orgs" :value="o.id" :key="index">{{o.name}}</md-option>
-                  </md-select>
-                </md-field>
+                -->
 
 
-                <md-field>
-                  <label>Description</label>
-                  <md-textarea required v-model="form.desc"></md-textarea>
-                  <i class="md-helper-text">Enter lots of information</i>
-                </md-field>
+              </md-card-content>
+
+              <md-card-actions md-alignment="left">
+                <md-button class="md-raised md-primary" @click="submitProject()">{{edit ? 'Update' : 'Create'}}
+                  Project
+                </md-button>
+                <md-button class="md-raised md-accent">Cancel</md-button>
+              </md-card-actions>
 
 
-                <md-field md-clearable >
-                  <md-icon class="md-primary">link</md-icon>
-                  <label>Project site URL</label>
-                  <md-input md-counter="40" v-model="form.url"></md-input>
-                </md-field>
+            </md-card>
 
-                <md-field>
-                  <label>Project logo</label>
-                  <md-file placeholder="Upload project logo" v-model="form.logoName"/>
-                  <md-button class="md-dense md-primary"  @click="uploadLogo()">Upload</md-button>
-                </md-field>
-
-                <md-checkbox v-model="form.public" class="md-primary">Public</md-checkbox>
-
-              </div>
-
-              <!-- A FAB to allow the project-view page to switch to edit mode -->
-              <!--
-              <md-button class="md-fab md-mini md-plain md-fab-bottom-right" to="/projects/edit>
-                <md-icon>edit</md-icon>
-              </md-button>
-              -->
-
-
-            </md-card-content>
-
-            <md-card-actions md-alignment="left">
-              <md-button class="md-raised md-primary" @click="submitProject()">{{edit ? 'Update' : 'Create'}} Project</md-button>
-              <md-button class="md-raised md-accent">Cancel</md-button>
-            </md-card-actions>
-
-
-
-          </md-card>
-
-        </div>
+          </div>
 
 
           <div class="md-layout-item md-medium-size-20 md-small-size-20 md-xsmall-size-100">
@@ -266,33 +324,6 @@
 
 
         </div>
-
-        <!--
-              <div class="md-layout-item md-medium-size-25 md-small-size-50 md-xsmall-size-100">
-                <span>Always Show</span>
-
-                <md-card md-with-hover>
-                  <md-ripple>
-                    <md-card-header>
-                      <div class="md-title">Card with hover effect</div>
-                      <div class="md-subhead">It also have a ripple</div>
-                    </md-card-header>
-
-                    <md-card-content>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non.
-                    </md-card-content>
-
-                    <md-card-actions>
-                      <md-button class="md-primary">Action-1</md-button>
-                      <md-button class="md-accent">Action-2</md-button>
-                    </md-card-actions>
-                  </md-ripple>
-                </md-card>
-
-              </div>
-
-
-            -->
 
         <md-speed-dial class="md-bottom-right" md-direction="top">
           <md-speed-dial-target>
@@ -357,6 +388,7 @@
   /* eslint-disable no-trailing-spaces */
 
   import axios from 'axios'
+  import moment from 'moment'
 
   export default {
     name: 'Sidenav',
@@ -369,18 +401,47 @@
       snackbarVisible: false,
       snackbarContent: '',
       dlgContent: '',
-      form: {name: '', desc: '', url: '', pi: '', logoName: '', logoRef: -1, public: false},
+      form: {
+        name: '',
+        shortName: '',
+        desc: '',
+        url: '',
+        pi: '',
+        primOrg: '',
+        primCntry: '',
+        geogArea: '',
+        disc: '',
+        fundOrg: '',
+        startDate: new Date(),
+        endDate: null,
+        logoName: '',
+        logoRef: -1,
+        public: false
+      },
       users: [],
-      orgs: [{id: 1, name: 'SAMS'}, {id: 2, name: 'NOCS'}, {id: 3, name: 'BODC'}]
+      orgs: [],
+      countries: [],
+      disciplines: [],
+      geog: []
     }),
     created () {
       this.getUsers()
+      this.getOrgs()
+      this.getCountries()
+      this.getDisciplines()
+      this.getGeog()
     },
     methods: {
       movetoinbox () {
         this.showNavigation = false
       },
       submitProject () {
+        let sd = moment(this.form.startDate)
+        const sdtxt = sd.format('YYYY-MM-DDTHH:mm:ss')
+        this.form.startDate = sdtxt
+        let ed = moment(this.form.endDate)
+        const edtxt = ed.format('YYYY-MM-DDTHH:mm:ss')
+        this.form.endDate = edtxt
         this.dlgContent = JSON.stringify(this.form)
         this.first = true
       },
@@ -397,11 +458,14 @@
         }
       },
       getUsers () {
-        const url = 'https://jsonplaceholder.typicode.com/users'
+        // const url = 'https://jsonplaceholder.typicode.com/users'
+        const url = 'http://openboatmonitor.org/obportal/api/get_users.php'
         axios.get(url).then(
           reply => {
-            console.log(reply.data)
-            reply.data.forEach(item => { this.users.push({name: item.name, id: item.id}) })
+            console.log(reply)
+            reply.data.data.forEach(item => {
+              this.users.push({name: item.name, id: item.id})
+            })
           }).catch(
           error => {
             console.log(error)
@@ -409,18 +473,206 @@
         )
       },
       getOrgs () {
-        const url = 'http://vocab.nerc.ac.uk/collection/P08/current/'
-        axios.get(url).then(
-          reply => {
-            console.log(reply.data)
-            // reply.data.forEach(item => { this.users.push({name: item.name, id: item.id}) })
+        console.log('Get orgs from nerc vocab sever...')
+        const url = 'http://vocab.nerc.ac.uk/collection/C75/current/'
+        const proxyurl = 'https://cors-anywhere.herokuapp.com/'
 
+        axios.get(proxyurl + url).then(
+          reply => {
             let parser = new DOMParser()
             let doc = parser.parseFromString(reply.data, 'text/xml')  // or could be application/xml
 
-            doc.getElementsByTagName('skos:prefLabel').forEach(item => {
-              console.log(item)
-            })
+            const root = doc.documentElement.getElementsByTagName('skos:member')
+
+            // loop over the member nodes
+            for (let i = 0; i < root.length; i++) {
+              const cc = root[i]
+              const membersub = cc.childNodes
+
+              // loop over subnodes of member i
+              for (let k = 0; k < membersub.length; k++) {
+                const cmk = membersub[k]
+
+                if (cmk.nodeName === 'skos:Concept') {
+                  const cmkj = cmk.childNodes
+
+                  let notat = ''
+                  let orgname = ''
+                  for (let j = 0; j < cmkj.length; j++) {
+                    let cj = cmkj[j]
+                    // found a notation log it
+                    if (cj.nodeName === 'skos:notation') {
+                      notat = cj.childNodes[0].nodeValue
+                    }
+
+                    // found a preflabel keep it
+                    if (cj.nodeName === 'skos:prefLabel') {
+                      const cjtext = cj.childNodes[0].nodeValue
+                      orgname = cjtext
+                    }
+
+                    if (cj.nodeName === 'skos:broader') {
+                      const cattr = cj.attributes
+                      const cat0 = cattr[0]
+
+                      if (cat0.value === 'http://vocab.nerc.ac.uk/collection/C32/current/GB/') {
+                        this.orgs.push({id: notat, name: notat + ' - ' + orgname})
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }).catch(
+          error => {
+            console.log(error)
+          }
+        )
+      },
+      getCountries () {
+        console.log('Get countries from nerc vocab sever...')
+        const url = 'http://vocab.nerc.ac.uk/collection/C32/current/'
+        const proxyurl = 'https://cors-anywhere.herokuapp.com/'
+
+        axios.get(proxyurl + url).then(
+          reply => {
+            let parser = new DOMParser()
+            let doc = parser.parseFromString(reply.data, 'text/xml')  // or could be application/xml
+
+            const root = doc.documentElement.getElementsByTagName('skos:member')
+
+            // loop over the member nodes
+            for (let i = 0; i < root.length; i++) {
+              const cc = root[i]
+              const membersub = cc.childNodes
+
+              // loop over subnodes of member i
+              for (let k = 0; k < membersub.length; k++) {
+                const cmk = membersub[k]
+
+                if (cmk.nodeName === 'skos:Concept') {
+                  const cmkj = cmk.childNodes
+
+                  let notat = ''
+                  let orgname = ''
+                  for (let j = 0; j < cmkj.length; j++) {
+                    let cj = cmkj[j]
+                    // found a notation log it
+                    if (cj.nodeName === 'skos:notation') {
+                      notat = cj.childNodes[0].nodeValue
+                    }
+
+                    // found a preflabel keep it
+                    if (cj.nodeName === 'skos:prefLabel') {
+                      const cjtext = cj.childNodes[0].nodeValue
+                      orgname = cjtext
+                      this.countries.push({id: notat, name: notat + ' - ' + orgname})
+                      console.log('Add country: ' + orgname)
+                    }
+                  }
+                }
+              }
+            }
+          }).catch(
+          error => {
+            console.log(error)
+          }
+        )
+      },
+      getDisciplines () {
+        console.log('Get disciplines from nerc vocab sever...')
+        const url = 'http://vocab.nerc.ac.uk/collection/P08/current/'
+        const proxyurl = 'https://cors-anywhere.herokuapp.com/'
+
+        axios.get(proxyurl + url).then(
+          reply => {
+            let parser = new DOMParser()
+            let doc = parser.parseFromString(reply.data, 'text/xml')  // or could be application/xml
+
+            const root = doc.documentElement.getElementsByTagName('skos:member')
+
+            // loop over the member nodes
+            for (let i = 0; i < root.length; i++) {
+              const cc = root[i]
+              const membersub = cc.childNodes
+
+              // loop over subnodes of member i
+              for (let k = 0; k < membersub.length; k++) {
+                const cmk = membersub[k]
+
+                if (cmk.nodeName === 'skos:Concept') {
+                  const cmkj = cmk.childNodes
+
+                  let notat = ''
+                  let orgname = ''
+                  for (let j = 0; j < cmkj.length; j++) {
+                    let cj = cmkj[j]
+                    // found a notation log it
+                    if (cj.nodeName === 'skos:notation') {
+                      notat = cj.childNodes[0].nodeValue
+                    }
+
+                    // found a preflabel keep it
+                    if (cj.nodeName === 'skos:prefLabel') {
+                      const cjtext = cj.childNodes[0].nodeValue
+                      orgname = cjtext
+                      this.disciplines.push({id: notat, name: notat + ' - ' + orgname})
+                      console.log('Add disc: ' + orgname)
+                    }
+                  }
+                }
+              }
+            }
+          }).catch(
+          error => {
+            console.log(error)
+          }
+        )
+      },
+      getGeog () {
+        console.log('Get geo-areas from nerc vocab sever...')
+        const url = 'http://vocab.nerc.ac.uk/collection/C19/current/'
+        const proxyurl = 'https://cors-anywhere.herokuapp.com/'
+
+        axios.get(proxyurl + url).then(
+          reply => {
+            let parser = new DOMParser()
+            let doc = parser.parseFromString(reply.data, 'text/xml')  // or could be application/xml
+
+            const root = doc.documentElement.getElementsByTagName('skos:member')
+
+            // loop over the member nodes
+            for (let i = 0; i < root.length; i++) {
+              const cc = root[i]
+              const membersub = cc.childNodes
+
+              // loop over subnodes of member i
+              for (let k = 0; k < membersub.length; k++) {
+                const cmk = membersub[k]
+
+                if (cmk.nodeName === 'skos:Concept') {
+                  const cmkj = cmk.childNodes
+
+                  let notat = ''
+                  let orgname = ''
+                  for (let j = 0; j < cmkj.length; j++) {
+                    let cj = cmkj[j]
+                    // found a notation log it
+                    if (cj.nodeName === 'skos:notation') {
+                      notat = cj.childNodes[0].nodeValue
+                    }
+
+                    // found a preflabel keep it
+                    if (cj.nodeName === 'skos:prefLabel') {
+                      const cjtext = cj.childNodes[0].nodeValue
+                      orgname = cjtext
+                      this.geog.push({id: notat, name: notat + ' - ' + orgname})
+                      console.log('Add geog: ' + orgname)
+                    }
+                  }
+                }
+              }
+            }
           }).catch(
           error => {
             console.log(error)
@@ -457,6 +709,10 @@
 
   .md-content {
     padding: 16px;
+  }
+
+  .widesel {
+    width: 45em;
   }
 
   .md-layout-item {
